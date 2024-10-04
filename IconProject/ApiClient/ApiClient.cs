@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 public class ApiClient
 {
@@ -6,12 +7,13 @@ public class ApiClient
 
     public ApiClient(string baseUrl)
     {
-        _client = new RestClient(baseUrl);
+        _client = new RestClient(baseUrl, configureSerialization: s => s.UseNewtonsoftJson());
     }
 
     public async Task<RestResponse<T>> GetAsync<T>(string endpoint) where T : new()
     {
         var request = new RestRequest(endpoint, Method.Get);
-        return await _client.ExecuteAsync<T>(request);
+        var response = await _client.ExecuteAsync<T>(request);
+        return response;
     }
 }
