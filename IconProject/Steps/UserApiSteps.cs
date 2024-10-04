@@ -39,10 +39,10 @@ public class UserApiSteps
     [Then(@"user with first name ""(.*)"", last name ""(.*)"", email ""(.*)"", and avatar URL ""(.*)"" should be present")]
     public void ThenTheUserWithFirstNameLastNameEmailAndAvatarShouldBePresent(string firstName, string lastName, string email, string avatarUrl)
     {
-        var user = _response.Data.Data.FirstOrDefault(u => u.first_name == firstName && u.last_name == lastName);
+        var user = _response.Data.Data.FirstOrDefault(u => u.FirstName == firstName && u.LastName == lastName);
         Assert.NotNull(user);
-        Assert.Equal(email, user.email);
-        Assert.Equal(avatarUrl, user.avatar);
+        Assert.Equal(email, user.Email);
+        Assert.Equal(avatarUrl, user.Avatar);
     }
 
     [Then(@"no users should be returned")]
